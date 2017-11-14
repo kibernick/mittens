@@ -1,0 +1,15 @@
+# dev 
+pip-tools
+ipython
+
+# project
+flask
+flask-CORS
+flask-restplus
+flask-SQLAlchemy
+
+
+# test
+pytest
+pytest-flask
+
