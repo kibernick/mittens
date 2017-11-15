@@ -2,8 +2,8 @@ from flask import Blueprint
 from flask_restplus import Api, Resource, fields
 from werkzeug.exceptions import BadRequest, NotFound
 
-from mittens.api.forms import create_log
-from mittens.api.models import ErrorLog
+from mittens.logs.forms import create_log
+from mittens.logs.models import ErrorLog
 from mittens.db import db
 
 blueprint = Blueprint('api', __name__)

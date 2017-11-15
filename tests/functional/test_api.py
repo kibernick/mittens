@@ -1,7 +1,7 @@
 from flask import url_for, json
 import pytest
 
-from mittens.api.models import ErrorLog
+from mittens.logs.models import ErrorLog
 
 
 class TestLogList:
