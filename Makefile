@@ -8,4 +8,4 @@ pipup:
 	pip-compile; pip install -r requirements.txt
 
 test:
-	pytest tests
+	PYTHONPATH=. pytest tests

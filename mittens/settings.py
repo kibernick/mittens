@@ -4,9 +4,10 @@ import os
 class Config(object):
     """Base configuration."""
 
-    SECRET_KEY = os.environ.get('LAUNCHER_SECRET', 'secret-key')
+    SECRET_KEY = os.environ.get('MITTENS_SECRET', 'secret-key')
     APP_DIR = os.path.abspath(os.path.dirname(__file__))  # This directory
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class ProdConfig(Config):
@@ -21,6 +22,7 @@ class DevConfig(Config):
 
     ENV = 'dev'
     DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'mysql://mittens_wearer:freemittens@localhost/mittens'
 
 
 class TestConfig(Config):
@@ -30,3 +32,4 @@ class TestConfig(Config):
     TESTING = True
     DEBUG = True
     # WTF_CSRF_ENABLED = False  # Allows form testing
+    SQLALCHEMY_DATABASE_URI = 'mysql://mittens_wearer:freemittens@localhost/mittens_test'

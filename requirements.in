@@ -1,15 +1,19 @@
 # dev 
 pip-tools
 ipython
+flask-shell-ipython
 
 # project
 flask
 flask-CORS
+flask-migrate
 flask-restplus
 flask-SQLAlchemy
-
+SQLAlchemy
+pytz
+python-dateutil
+mysqlclient
 
 # test
 pytest
 pytest-flask
-

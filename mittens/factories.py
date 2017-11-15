@@ -1,8 +1,11 @@
 from flask import Flask
 from flask_cors import CORS
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 
-from .settings import ProdConfig
-from .api.views import blueprint as api
+from mittens.api.views import blueprint as api
+from mittens.db import db
+from mittens.settings import ProdConfig
 
 
 def create_app(config_object=ProdConfig):
@@ -14,7 +17,11 @@ def create_app(config_object=ProdConfig):
     app.config.from_object(config_object)
     CORS(app, resources={r"*": {"origins": "*"}})  # TODO: restrict this properly
 
-    # Register blueprints
-    app.register_blueprint(api, url_prefix='/api/v1'
-                           )
+    # Import models and initialize DB.
+    SQLAlchemy(app)
+    Migrate(app, db)
+
+    # Register blueprints.
+    app.register_blueprint(api, url_prefix='/api/v1')
+
     return app
