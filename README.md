@@ -18,19 +18,21 @@ A scalable API service that collects JavaScript errors produced by visitors in m
 
 ### Developer goodies
 
-* Dependency management using `pip-tools`
-* RESTful interface with `flask-restplus`
+* Dependency management using `pip-tools` – quickly update, sync and install dependencies by editing [requirements.in](requirements.in) and doing `make pipup`
+* [RESTful interface](mittens/logs/views.py) with `flask-restplus`
 * DB migrations with `alembic`
-* Basic token authentication
-* `make test`
+* [Basic token authentication](mittens/auth.py)
+* Run [all the tests](tests) with `make test`
+* Access an IPython console with the Flask app context with `make console`
 
-### Setting up local development (sans Docker)
+### Local development setup (sans Docker)
 
-Make sure that you have [Python 3.6](.python-version) available on your system, and have a MySQL database setup (see [DevConfig](mittens/settings.py)).
+Make sure that you have [Python 3.6](.python-version) available on your system, and have the MySQL database, table and user setup as per [DevConfig](mittens/settings.py).
 
-* Create a virtualenv inside your pyenv (or equivalent), for Python 3.6
-* `pip install -r requirements.txt`
-* `make api`
+* Create a virtualenv inside your pyenv (or equivalent) for Python 3.6, and activate it
+* Install all the dependencies: `pip install -r requirements.txt`
+* Run the migrations: `FLASK_APP=local_api.py FLASK_DEBUG=1 flask db upgrade`
+* Run the app server: `make api`
 
 ## TODO:
 
