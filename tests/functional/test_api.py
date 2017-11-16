@@ -20,7 +20,7 @@ class TestLogList:
             session.commit()
             created_ids.append(_log.id)
 
-        res = client.get(url_for('api.log-list'), headers={'Authorization': f"Basic {tenant.api_key}"})
+        res = client.get(url_for('log-list'), headers={'Authorization': f"Basic {tenant.api_key}"})
         assert res.status_code == 200
         assert [l['id'] for l in res.json] == created_ids
 
@@ -33,13 +33,13 @@ class TestLogList:
         session.add(my_log)
         session.commit()
 
-        res = client.get(url_for('api.log-list'),
+        res = client.get(url_for('log-list'),
                          headers={'Authorization': f"Basic {tenant.api_key}", 'X-Fields': 'id'})
         assert res.status_code == 200
         assert res.json == [{'id': my_log.id}]
 
     def test_list_with_wrong_tenant(self, app, session, client, tenant):
-        res = client.get(url_for('api.log-list'), headers={'Authorization': f"Basic Z{tenant.api_key}"})
+        res = client.get(url_for('log-list'), headers={'Authorization': f"Basic Z{tenant.api_key}"})
         assert res.status_code == 401
 
     @pytest.mark.parametrize('logdict', [
@@ -48,7 +48,7 @@ class TestLogList:
         {'content': "something", 'meta': {'c': 4}},
     ])
     def test_create_log(self, app, session, logdict, client, tenant):
-        res = client.post(url_for('api.log-list'),
+        res = client.post(url_for('log-list'),
                           data=json.dumps(logdict),
                           content_type='application/json',
                           headers={'Authorization': f"Basic {tenant.api_key}"})
@@ -64,7 +64,7 @@ class TestLogList:
         ({'content': "notjson"}, None),
     ])
     def test_wrong_arguments(self, app, session, client, req_data, req_ct, tenant):
-        res = client.post(url_for('api.log-list'),
+        res = client.post(url_for('log-list'),
                           data=json.dumps(req_data),
                           content_type=req_ct,
                           headers={'Authorization': f"Basic {tenant.api_key}"})
@@ -72,7 +72,7 @@ class TestLogList:
         assert res.status_code == 400
 
     def test_create_with_wrong_tenant(self, app, session, client, tenant):
-        res = client.post(url_for('api.log-list'),
+        res = client.post(url_for('log-list'),
                           data=json.dumps({'content': "1"}),
                           content_type='application/json',
                           headers={'Authorization': f"Basic Z{tenant.api_key}"})
@@ -93,7 +93,7 @@ class TestLogDetails:
         session.add(_log)
         session.commit()
 
-        res = client.get(url_for('api.log-details', log_id=_log.id),
+        res = client.get(url_for('log-details', log_id=_log.id),
                          headers={'Authorization': f"Basic {tenant.api_key}"})
         assert res.status_code == 200
         assert res.json['id'] == _log.id
@@ -103,10 +103,10 @@ class TestLogDetails:
     def test_get_nonexistent(self, app, session, client, tenant):
         assert ErrorLog.query.count() == 0
 
-        res = client.get(url_for('api.log-details', log_id=1),
+        res = client.get(url_for('log-details', log_id=1),
                          headers={'Authorization': f"Basic {tenant.api_key}"})
         assert res.status_code == 404
 
     def test_get_with_wrong_tenant(self, app, session, client, tenant):
-        res = client.get(url_for('api.log-details', log_id=1), headers={'Authorization': f"Basic Z{tenant.api_key}"})
+        res = client.get(url_for('log-details', log_id=1), headers={'Authorization': f"Basic Z{tenant.api_key}"})
         assert res.status_code == 401

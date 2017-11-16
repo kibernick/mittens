@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
+from mittens.api import api
 from mittens.auth import login_manager
 from mittens.db import db
 from mittens.logs.views import blueprint as logs
@@ -24,6 +25,7 @@ def create_app(config_object=ProdConfig):
     Migrate(app, db)
 
     # Register blueprints.
-    app.register_blueprint(logs, url_prefix='/api/v1')
+    app.register_blueprint(logs)
+    api.init_app(app)
 
     return app
