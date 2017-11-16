@@ -15,6 +15,7 @@ A scalable API service that collects JavaScript errors produced by visitors in m
 * Access control via `api_key` issued per tenant
 * API documentation (Swagger) available at `http://127.0.0.1:5000/api/v1/`
 * Filter desired fields in response with the `X-Fields` header
+* Rate limiting on Nginx level, using `limit_req_zone` and `$http_x_forwarded_for` 
 
 ### Developer goodies
 
@@ -25,36 +26,52 @@ A scalable API service that collects JavaScript errors produced by visitors in m
 * Run [all the tests](tests) with `make test`
 * Access an IPython console with the Flask app context with `make console`
 
-### Local development setup (sans Docker)
+## Local development setup (sans Docker)
 
 Make sure that you have [Python 3.6](.python-version) available on your system, and have the MySQL database, table and user setup as per [DevConfig](mittens/settings.py).
 
 * Create a virtualenv inside your pyenv (or equivalent) for Python 3.6, and activate it
 * Install all the dependencies: `pip install -r requirements.txt`
-* You may initialize your local databse with `make localdb` (assumes `root` user with no password)
-* Run the migrations: `FLASK_APP=local_api.py FLASK_DEBUG=1 flask db upgrade`
-* Run the app server: `make api`
+* You may initialize your local database with `make localdb` (assumes `root` user with no password)
+* Run the migrations: `FLASK_APP=autoapp.py FLASK_DEBUG=1 flask db upgrade`
+* Run the app server: `make app`
 
-## TODO:
+Adding and querying error logs is protected by simple API keys. In order to use the Mittens API, you need to create a
+new tenant and give them an `api_key`. You can do this by entering the app console with `make console` and running:
 
-* Dockerfile
-* Rate limiting on Nginx level, using `limit_req_zone` and `$http_x_forwarded_for`, for example:
+```python
+from mittens.db import db
+from mittens.logs.models import Tenant
+
+session = db.create_scoped_session()
+session.add(Tenant(api_key="sk_test_123455678"))
+session.commit()
 ```
-limit_req_zone  $http_x_forwarded_for zone=my_zone:16m rate=1r/s;
 
-server {
+## Start a Docker container on Kubernetes (Minikube)
 
-    location /my-api {
-
-        limit_req zone=my_zone burst=10;
-
+```bash
+minikube start
+eval $(minikube docker-env)
+docker build -t mittens .
+kubectl run mittens --image=mittens --port=80 --image-pull-policy=Never
+kubectl expose deployment/mittens --type=NodePort
+minikube service mittens
 ```
-* Kubernetes (minikube) deployment
 
-## Improvements
+## TODO
 
+* Connect to local MySQL DB from within a running container
+
+## Improvements wishlist
+
+* Configurable `limit_req_zone` parameters
+* CI build
+* Have a base Docker image for OS and Python dependencies
+* Load testing with [locust](https://locust.io/)
 * Configuration management for deployment
 * Don't use Integer as ID
 * Pagination
 * JWT auth tokens
 * Admin panel with the ability to search over error log content and metadata
+* HTTPS

@@ -16,10 +16,10 @@ class ProdConfig(Config):
 
     ENV = 'prod'
     DEBUG = False
-    SQLALCHEMY_USER = ''
-    SQLALCHEMY_PASS = ''
-    SQLALCHEMY_HOST = ''
-    SQLALCHEMY_DB = ''
+    SQLALCHEMY_USER = 'mittens_wearer'
+    SQLALCHEMY_PASS = 'freemittens'  # :')
+    SQLALCHEMY_HOST = 'localhost'
+    SQLALCHEMY_DB = 'mittens'
     SQLALCHEMY_DATABASE_URI = 'mysql://{user}:{pwd}@{host}/{db}'.format(
         user=SQLALCHEMY_USER, pwd=SQLALCHEMY_PASS, host=SQLALCHEMY_HOST, db=SQLALCHEMY_DB)
 

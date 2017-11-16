@@ -1,8 +1,8 @@
 console:
-	FLASK_APP=local_api.py FLASK_DEBUG=1 flask shell
+	FLASK_APP=autoapp.py FLASK_DEBUG=1 flask shell
 
-api:
-	FLASK_APP=local_api.py FLASK_DEBUG=1 flask run
+app:
+	FLASK_APP=autoapp.py FLASK_DEBUG=1 flask run
 
 pipup:
 	pip-compile; pip install -r requirements.txt

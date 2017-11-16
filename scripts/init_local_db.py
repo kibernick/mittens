@@ -1,7 +1,7 @@
 import MySQLdb
 import click
 
-from mittens.settings import DevConfig
+from mittens.settings import DevConfig, TestConfig
 
 
 def init_from_config(cfg):
@@ -18,8 +18,10 @@ def init_from_config(cfg):
 
 def init_db():
     """Initialize a local DB."""
-    if click.confirm("Create DB on: %s" % DevConfig.SQLALCHEMY_DATABASE_URI):
-        init_from_config(DevConfig)
+    for cfg in [DevConfig, TestConfig]:
+        msg = "Create {} DB on: {}".format(cfg.ENV, cfg.SQLALCHEMY_DATABASE_URI)
+        if click.confirm(msg):
+            init_from_config(cfg)
 
 
 if __name__ == '__main__':
