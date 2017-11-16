@@ -13,12 +13,20 @@ def load_tenant_from_token(request):
     """Simple token based auth. Provide a (base64-encoded or not) api_key
     in the `Authorization` header to authenticate a Tenant.
 
+    Since hash algorithms and HMAC don't provide hexadecimal string outputs,
+    and we're being agnostic, we're checking for a base64-encoded api_key in
+    the Authorization header.
+
     Returns:
         Either an authenticated Tenant or None.
     """
-    auth_header = request.headers.get('Authorization')
+    return get_tenant_from_header(request.headers.get('Authorization'))
+
+
+def get_tenant_from_header(auth_header: str):
+    """Inner function, allowing for unit testing without a request context."""
     if auth_header:
-        api_key = auth_header.replace('Basic ', '', 1)
+        api_key = auth_header.replace('Basic ', '', 1).strip()
         try:
             api_key = base64.b64decode(api_key)
         except (TypeError, binascii.Error):
