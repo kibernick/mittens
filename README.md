@@ -1,6 +1,8 @@
 # Mittens
 
-A scalable API service that collects JavaScript errors produced by visitors in multiple websites. Why mittens? Hot objects (like error logs) are best handled by wearing mittens! 
+![Mittens](background.png "Mittens")
+
+A scalable API service that collects JavaScript errors produced by visitors in multiple websites. Why mittens? Hot objects (like error logs) are best handled by wearing mitts! 
 
 ## Features
 
