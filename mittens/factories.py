@@ -3,8 +3,9 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from mittens.logs.views import blueprint as api
+from mittens.auth import login_manager
 from mittens.db import db
+from mittens.logs.views import blueprint as logs
 from mittens.settings import ProdConfig
 
 
@@ -16,12 +17,13 @@ def create_app(config_object=ProdConfig):
     app = Flask(__name__.split('.')[0])
     app.config.from_object(config_object)
     CORS(app, resources={r"*": {"origins": "*"}})  # TODO: restrict this properly
+    login_manager.init_app(app)
 
     # Import models and initialize DB.
     SQLAlchemy(app)
     Migrate(app, db)
 
     # Register blueprints.
-    app.register_blueprint(api, url_prefix='/api/v1')
+    app.register_blueprint(logs, url_prefix='/api/v1')
 
     return app

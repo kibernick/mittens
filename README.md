@@ -10,3 +10,4 @@ X-Fields!!
 * Health-check endpoints.
 * Configuration management.
 * Don't use Integer as ID.
+* Pagination

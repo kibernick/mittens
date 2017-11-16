@@ -1,8 +1,9 @@
 import pytest
 
-from mittens.factories import create_app
-from mittens.settings import TestConfig
 from mittens.db import db as _db
+from mittens.factories import create_app
+from mittens.logs.models import Tenant
+from mittens.settings import TestConfig
 
 
 @pytest.fixture(scope='session')
@@ -51,3 +52,11 @@ def session(db, request):
 
     request.addfinalizer(teardown)
     return session
+
+
+@pytest.fixture(scope='function')
+def tenant(db, session):
+    tenant = Tenant(api_key="9779344518546cdaf4")
+    session.add(tenant)
+    session.commit()
+    return tenant

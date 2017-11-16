@@ -9,6 +9,7 @@ flask-CORS
 flask-migrate
 flask-restplus
 flask-SQLAlchemy
+flask-login
 SQLAlchemy
 pytz
 python-dateutil
