@@ -9,3 +9,6 @@ pipup:
 
 test:
 	PYTHONPATH=. pytest tests
+
+localdb:
+	PYTHONPATH=. python scripts/init_local_db.py

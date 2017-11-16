@@ -31,6 +31,7 @@ Make sure that you have [Python 3.6](.python-version) available on your system, 
 
 * Create a virtualenv inside your pyenv (or equivalent) for Python 3.6, and activate it
 * Install all the dependencies: `pip install -r requirements.txt`
+* You may initialize your local databse with `make localdb` (assumes `root` user with no password)
 * Run the migrations: `FLASK_APP=local_api.py FLASK_DEBUG=1 flask db upgrade`
 * Run the app server: `make api`
 
@@ -52,7 +53,6 @@ server {
 
 ## Improvements
 
-* Health-check endpoints
 * Configuration management for deployment
 * Don't use Integer as ID
 * Pagination

@@ -16,6 +16,13 @@ class ProdConfig(Config):
 
     ENV = 'prod'
     DEBUG = False
+    SQLALCHEMY_USER = ''
+    SQLALCHEMY_PASS = ''
+    SQLALCHEMY_HOST = ''
+    SQLALCHEMY_DB = ''
+    SQLALCHEMY_DATABASE_URI = 'mysql://{user}:{pwd}@{host}/{db}'.format(
+        user=SQLALCHEMY_USER, pwd=SQLALCHEMY_PASS, host=SQLALCHEMY_HOST, db=SQLALCHEMY_DB)
+
 
 
 class DevConfig(Config):
@@ -23,7 +30,12 @@ class DevConfig(Config):
 
     ENV = 'dev'
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://mittens_wearer:freemittens@localhost/mittens'
+    SQLALCHEMY_USER = 'mittens_wearer'
+    SQLALCHEMY_PASS = 'freemittens'
+    SQLALCHEMY_HOST = 'localhost'
+    SQLALCHEMY_DB = 'mittens'
+    SQLALCHEMY_DATABASE_URI = 'mysql://{user}:{pwd}@{host}/{db}'.format(
+        user=SQLALCHEMY_USER, pwd=SQLALCHEMY_PASS, host=SQLALCHEMY_HOST, db=SQLALCHEMY_DB)
 
 
 class TestConfig(Config):
@@ -32,5 +44,9 @@ class TestConfig(Config):
     ENV = 'test'
     TESTING = True
     DEBUG = True
-    # WTF_CSRF_ENABLED = False  # Allows form testing
-    SQLALCHEMY_DATABASE_URI = 'mysql://mittens_wearer:freemittens@localhost/mittens_test'
+    SQLALCHEMY_USER = 'mittens_wearer'
+    SQLALCHEMY_PASS = 'freemittens'
+    SQLALCHEMY_HOST = 'localhost'
+    SQLALCHEMY_DB = 'mittens_test'
+    SQLALCHEMY_DATABASE_URI = 'mysql://{user}:{pwd}@{host}/{db}'.format(
+        user=SQLALCHEMY_USER, pwd=SQLALCHEMY_PASS, host=SQLALCHEMY_HOST, db=SQLALCHEMY_DB)
