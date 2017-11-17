@@ -18,3 +18,4 @@ mysqlclient
 # test
 pytest
 pytest-flask
+locustio

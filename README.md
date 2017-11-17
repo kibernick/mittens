@@ -23,7 +23,8 @@ A scalable API service that collects JavaScript errors produced by visitors in m
 * [RESTful interface](mittens/logs/views.py) with `flask-restplus`
 * DB migrations with `alembic`
 * [Basic token authentication](mittens/auth.py)
-* Run [all the tests](tests) with `make test`
+* Run [unit & functional](tests) with `make test`
+* Load testing with [locust](https://locust.io/)
 * Access an IPython console with the Flask app context with `make console`
 
 ## Local development setup (sans Docker)
@@ -65,14 +66,23 @@ You can Navigate to the root of the running server/container and find the intera
 
 ![Swagger](images/demo.gif "Swagger")
 
+## Tests
+
+Run the unit and functional tests with the `make test` command.
+
+You can also do load testing with [locust](https://locust.io/) by running the following:
+
+`locust -f tests/locustfile.py --host={app uri}`
+
+and then open `http://127.0.0.1:8089/` in your browser. 
+
 ## Improvements wishlist
 
 * Configurable `limit_req_zone` parameters
 * CI build
 * Have a base Docker image for OS and Python dependencies
-* Load testing with [locust](https://locust.io/)
 * Configuration management for deployment
-* Don't use Integer as ID
+* Use UUID instead of Integer for IDs
 * Pagination
 * JWT auth tokens
 * Admin panel with the ability to search over error log content and metadata
