@@ -18,7 +18,7 @@ class ProdConfig(Config):
     DEBUG = False
     SQLALCHEMY_USER = 'mittens_wearer'
     SQLALCHEMY_PASS = 'freemittens'  # :')
-    SQLALCHEMY_HOST = 'localhost'
+    SQLALCHEMY_HOST = '10.0.2.2'
     SQLALCHEMY_DB = 'mittens'
     SQLALCHEMY_DATABASE_URI = 'mysql://{user}:{pwd}@{host}/{db}'.format(
         user=SQLALCHEMY_USER, pwd=SQLALCHEMY_PASS, host=SQLALCHEMY_HOST, db=SQLALCHEMY_DB)

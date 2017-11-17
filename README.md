@@ -53,15 +53,11 @@ session.commit()
 ```bash
 minikube start
 eval $(minikube docker-env)
-docker build -t mittens .
-kubectl run mittens --image=mittens --port=80 --image-pull-policy=Never
+docker-compose build
+kubectl run mittens --image=mittens_web --port=80 --image-pull-policy=Never
 kubectl expose deployment/mittens --type=NodePort
 minikube service mittens
 ```
-
-## TODO
-
-* Connect to local MySQL DB from within a running container
 
 ## Improvements wishlist
 
