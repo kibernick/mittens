@@ -1,6 +1,6 @@
 # Mittens
 
-![Mittens](background.png "Mittens")
+![Mittens](images/background.png "Mittens")
 
 A scalable API service that collects JavaScript errors produced by visitors in multiple websites. Why mittens? Hot objects (like error logs) are best handled by wearing mitts!
 
@@ -58,6 +58,12 @@ kubectl run mittens --image=mittens_web --port=80 --image-pull-policy=Never
 kubectl expose deployment/mittens --type=NodePort
 minikube service mittens
 ```
+
+## Usage and documentation
+
+You can Navigate to the root of the running server/container and find the interactive Swagger UI, which serves as API documentation.
+
+![Swagger](images/demo.gif "Swagger")
 
 ## Improvements wishlist
 
