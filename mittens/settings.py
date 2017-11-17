@@ -9,6 +9,7 @@ class Config(object):
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ERROR_404_HELP = False
+    MAX_CONTENT_LENGTH = 1 * 1024 * 1024  # 1 MB
 
 
 class ProdConfig(Config):
