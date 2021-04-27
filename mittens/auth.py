@@ -20,13 +20,13 @@ def load_tenant_from_token(request):
     Returns:
         Either an authenticated Tenant or None.
     """
-    return get_tenant_from_header(request.headers.get('Authorization'))
+    return get_tenant_from_header(request.headers.get("Authorization"))
 
 
 def get_tenant_from_header(auth_header: str):
     """Inner function, allowing for unit testing without a request context."""
     if auth_header:
-        api_key = auth_header.replace('Basic ', '', 1).strip()
+        api_key = auth_header.replace("Basic ", "", 1).strip()
         try:
             api_key = base64.b64decode(api_key)
         except (TypeError, binascii.Error):

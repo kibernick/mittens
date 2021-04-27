@@ -4,7 +4,7 @@ import os
 class Config(object):
     """Base configuration."""
 
-    SECRET_KEY = os.environ.get('MITTENS_SECRET', 'secret-key')
+    SECRET_KEY = os.environ.get("MITTENS_SECRET", "secret-key")
     APP_DIR = os.path.abspath(os.path.dirname(__file__))  # This directory
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -15,39 +15,41 @@ class Config(object):
 class ProdConfig(Config):
     """Production configuration."""
 
-    ENV = 'prod'
+    ENV = "prod"
     DEBUG = False
-    SQLALCHEMY_USER = 'mittens_wearer'
-    SQLALCHEMY_PASS = 'freemittens'  # :')
-    SQLALCHEMY_HOST = '10.0.2.2'
-    SQLALCHEMY_DB = 'mittens'
-    SQLALCHEMY_DATABASE_URI = 'mysql://{user}:{pwd}@{host}/{db}'.format(
-        user=SQLALCHEMY_USER, pwd=SQLALCHEMY_PASS, host=SQLALCHEMY_HOST, db=SQLALCHEMY_DB)
-
+    SQLALCHEMY_USER = "mittens_wearer"
+    SQLALCHEMY_PASS = "freemittens"  # :')
+    SQLALCHEMY_HOST = "10.0.2.2"
+    SQLALCHEMY_DB = "mittens"
+    SQLALCHEMY_DATABASE_URI = "mysql://{user}:{pwd}@{host}/{db}".format(
+        user=SQLALCHEMY_USER, pwd=SQLALCHEMY_PASS, host=SQLALCHEMY_HOST, db=SQLALCHEMY_DB
+    )
 
 
 class DevConfig(Config):
     """Development configuration."""
 
-    ENV = 'dev'
+    ENV = "dev"
     DEBUG = True
-    SQLALCHEMY_USER = 'mittens_wearer'
-    SQLALCHEMY_PASS = 'freemittens'
-    SQLALCHEMY_HOST = 'localhost'
-    SQLALCHEMY_DB = 'mittens'
-    SQLALCHEMY_DATABASE_URI = 'mysql://{user}:{pwd}@{host}/{db}'.format(
-        user=SQLALCHEMY_USER, pwd=SQLALCHEMY_PASS, host=SQLALCHEMY_HOST, db=SQLALCHEMY_DB)
+    SQLALCHEMY_USER = "mittens_wearer"
+    SQLALCHEMY_PASS = "freemittens"
+    SQLALCHEMY_HOST = "localhost"
+    SQLALCHEMY_DB = "mittens"
+    SQLALCHEMY_DATABASE_URI = "mysql://{user}:{pwd}@{host}/{db}".format(
+        user=SQLALCHEMY_USER, pwd=SQLALCHEMY_PASS, host=SQLALCHEMY_HOST, db=SQLALCHEMY_DB
+    )
 
 
 class TestConfig(Config):
     """Test configuration."""
 
-    ENV = 'test'
+    ENV = "test"
     TESTING = True
     DEBUG = True
-    SQLALCHEMY_USER = 'mittens_wearer'
-    SQLALCHEMY_PASS = 'freemittens'
-    SQLALCHEMY_HOST = 'localhost'
-    SQLALCHEMY_DB = 'mittens_test'
-    SQLALCHEMY_DATABASE_URI = 'mysql://{user}:{pwd}@{host}/{db}'.format(
-        user=SQLALCHEMY_USER, pwd=SQLALCHEMY_PASS, host=SQLALCHEMY_HOST, db=SQLALCHEMY_DB)
+    SQLALCHEMY_USER = "mittens_wearer"
+    SQLALCHEMY_PASS = "freemittens"
+    SQLALCHEMY_HOST = "localhost"
+    SQLALCHEMY_DB = "mittens_test"
+    SQLALCHEMY_DATABASE_URI = "mysql://{user}:{pwd}@{host}/{db}".format(
+        user=SQLALCHEMY_USER, pwd=SQLALCHEMY_PASS, host=SQLALCHEMY_HOST, db=SQLALCHEMY_DB
+    )
