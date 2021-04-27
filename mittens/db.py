@@ -9,6 +9,7 @@ db = SQLAlchemy()
 
 class Base(db.Model):
     """Abstract base class for our models."""
+
     __abstract__ = True
 
     created_on = Column(DateTime, default=db.func.utc_timestamp())

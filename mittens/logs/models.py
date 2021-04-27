@@ -7,12 +7,12 @@ from mittens.db import Base
 
 
 class Tenant(Base):
-    __tablename__ = 'tenants'
+    __tablename__ = "tenants"
 
     id = Column(Integer, primary_key=True, nullable=False)
     api_key = Column(String(100), unique=True)
 
-    error_logs = relationship('ErrorLog', back_populates='tenant')
+    error_logs = relationship("ErrorLog", back_populates="tenant")
 
     @property
     def is_authenticated(self):
@@ -21,11 +21,11 @@ class Tenant(Base):
 
 
 class ErrorLog(Base):
-    __tablename__ = 'error_logs'
+    __tablename__ = "error_logs"
 
     id = Column(Integer, primary_key=True, nullable=False)
     meta = Column(JSON)
     content = Column(Text, nullable=False)
 
-    tenant_id = Column(Integer, ForeignKey('tenants.id'), nullable=False)
-    tenant = relationship('Tenant', back_populates='error_logs')
+    tenant_id = Column(Integer, ForeignKey("tenants.id"), nullable=False)
+    tenant = relationship("Tenant", back_populates="error_logs")

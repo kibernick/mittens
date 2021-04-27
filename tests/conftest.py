@@ -6,7 +6,7 @@ from mittens.logs.models import Tenant
 from mittens.settings import TestConfig
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def app(request):
     """Session-wide test `Flask` application."""
     app = create_app(TestConfig)
@@ -21,9 +21,10 @@ def app(request):
     return app
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def db(app, request):
     """Session-wide test database."""
+
     def teardown():
         _db.drop_all()
 
@@ -34,7 +35,7 @@ def db(app, request):
     return _db
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def session(db, request):
     """Creates a new database session for a test."""
     connection = db.engine.connect()
@@ -54,7 +55,7 @@ def session(db, request):
     return session
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def tenant(db, session):
     tenant = Tenant(api_key="9779344518546cdaf4")
     session.add(tenant)

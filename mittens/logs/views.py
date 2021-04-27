@@ -7,20 +7,24 @@ from mittens.db import db
 from mittens.logs.forms import create_log
 from mittens.logs.models import ErrorLog
 
-blueprint = Blueprint('api', __name__)
-logs = Namespace('logs', description='Record or query error logs')
-log_fields = {'id': fields.Integer(readOnly=True, description='Log unique identifier', example=1),
-              'content': fields.String(description='Error message', required=True, min_length=1,
-                                       example="Uncaught SyntaxError: Unexpected token <"),
-              'meta': fields.Raw(description='Optional extra data',
-                                 example={'browser': "Mozilla", 'url': "http://mylovelywebsite.com"})}
-error_log_new = logs.model('ErrorLogNew', {x: log_fields[x] for x in ('content', 'meta')})
-error_log_full = logs.model('ErrorLog', {x: log_fields[x] for x in ('id', 'content', 'meta')})
+blueprint = Blueprint("api", __name__)
+logs = Namespace("logs", description="Record or query error logs")
+log_fields = {
+    "id": fields.Integer(readOnly=True, description="Log unique identifier", example=1),
+    "content": fields.String(
+        description="Error message", required=True, min_length=1, example="Uncaught SyntaxError: Unexpected token <"
+    ),
+    "meta": fields.Raw(
+        description="Optional extra data", example={"browser": "Mozilla", "url": "http://mylovelywebsite.com"}
+    ),
+}
+error_log_new = logs.model("ErrorLogNew", {x: log_fields[x] for x in ("content", "meta")})
+error_log_full = logs.model("ErrorLog", {x: log_fields[x] for x in ("id", "content", "meta")})
 
 
-@logs.route('', endpoint='log-list')
+@logs.route("", endpoint="log-list")
 class LogList(Resource):
-    @logs.doc('list_logs')
+    @logs.doc("list_logs")
     @logs.header("Authorization", description="Basic auth with tenant API key")
     @logs.marshal_list_with(error_log_full)
     @login_required
@@ -28,7 +32,7 @@ class LogList(Resource):
         """List all error logs for the current tenant."""
         return ErrorLog.query.filter_by(tenant=current_user).all()
 
-    @logs.doc('create_log')
+    @logs.doc("create_log")
     @logs.expect(error_log_new)
     @logs.header("Authorization", description="Basic auth with tenant API key")
     @logs.marshal_with(error_log_full, code=201)
@@ -36,10 +40,8 @@ class LogList(Resource):
     def post(self):
         """Create a new error log."""
         args = create_log.parse_args()
-        if not args.get('content'):
-            abort(400,
-                  message="Input payload validation failed",
-                  errors={'content': "Provide a non-empty string"})
+        if not args.get("content"):
+            abort(400, message="Input payload validation failed", errors={"content": "Provide a non-empty string"})
         record = ErrorLog(**args)
         record.tenant = current_user
         db.session.add(record)
@@ -47,10 +49,10 @@ class LogList(Resource):
         return record, 201
 
 
-@logs.route('/<int:log_id>', endpoint='log-details')
-@logs.doc(params={'log_id': "Id of the error log"})
+@logs.route("/<int:log_id>", endpoint="log-details")
+@logs.doc(params={"log_id": "Id of the error log"})
 class LogDetails(Resource):
-    @logs.doc('get_log')
+    @logs.doc("get_log")
     @logs.header("Authorization", description="Basic auth with tenant API key")
     @logs.marshal_with(error_log_full)
     @login_required
@@ -59,5 +61,4 @@ class LogDetails(Resource):
         record = ErrorLog.query.filter_by(tenant=current_user, id=log_id).first()
         if record:
             return record, 200
-        abort(404,
-              message="Log not found")
+        abort(404, message="Log not found")

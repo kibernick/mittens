@@ -5,14 +5,15 @@ from mittens.settings import DevConfig, TestConfig
 
 
 def init_from_config(cfg):
-    conn = MySQLdb.connect(user='root')
+    conn = MySQLdb.connect(user="root")
+    sql_commands = [
+        f"create database if not exists {cfg.SQLALCHEMY_DB};",
+        f"create user if not exists '{cfg.SQLALCHEMY_USER}'@'{cfg.SQLALCHEMY_HOST}' identified by '{cfg.SQLALCHEMY_PASS}';",
+        f"grant all on {cfg.SQLALCHEMY_DB}.* to '{cfg.SQLALCHEMY_USER}'@'{cfg.SQLALCHEMY_HOST}';",
+    ]
     with conn.cursor() as cur:
-        cur.execute('create database if not exists `%s`;' % cfg.SQLALCHEMY_DB)
-        cur.execute('create user if not exists `%s`;' % cfg.SQLALCHEMY_USER)
-        cur.execute("grant all on {db}.* to '{user}'@'{host}' identified by '{pwd}';".format(
-            user=cfg.SQLALCHEMY_USER, pwd=cfg.SQLALCHEMY_PASS,
-            host=cfg.SQLALCHEMY_HOST, db=cfg.SQLALCHEMY_DB
-        ))
+        for sql_cmd in sql_commands:
+            cur.execute(sql_cmd)
     conn.close()
 
 
@@ -24,5 +25,5 @@ def init_db():
             init_from_config(cfg)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     init_db()

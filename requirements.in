@@ -14,8 +14,9 @@ SQLAlchemy
 pytz
 python-dateutil
 mysqlclient
+Werkzeug==0.16.1  # https://github.com/noirbizarre/flask-restplus/issues/777#issuecomment-583235327
 
 # test
 pytest
 pytest-flask
-locustio
+# locust  # requires higher Werkzeug: Werkzeug>=1.0.1 (from locust==1.4.4->-r requirements.in (line 22))

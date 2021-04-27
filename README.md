@@ -4,7 +4,7 @@
 
 A scalable API service that collects JavaScript errors produced by visitors in multiple websites. Why mittens? Hot objects (like error logs) are best handled by wearing mitts!
 
-* Python 3.6 - using the latest Python
+* Python 3.8 - using the latest Python
 * Flask - a micro-framework for web projects, that is flexible and has a great community
 * uwsgi over nginx - a fast and pretty "standard" way of serving (C)Python
 * MySQL - simple use case, so nothing too fancy, possibly would add queues 
@@ -29,10 +29,12 @@ A scalable API service that collects JavaScript errors produced by visitors in m
 
 ## Local development setup (sans Docker)
 
-Make sure that you have [Python 3.6](.python-version) available on your system, and have the MySQL database, table and user setup as per [DevConfig](mittens/settings.py).
+Make sure that you have [Python 3.8](.python-version) available on your system, and have the MySQL database, table and user setup as per [DevConfig](mittens/settings.py).
 
-* Create a virtualenv inside your pyenv (or equivalent) for Python 3.6, and activate it
+* Create a virtualenv inside your pyenv (or equivalent) for Python 3.8
+* Activate it (and update it with `pip install --upgrade pip setuptools wheel`)
 * Install all the dependencies: `pip install -r requirements.txt`
+  * Make sure you have MySQL installed locally
 * You may initialize your local database with `make localdb` (assumes `root` user with no password)
 * Run the migrations: `FLASK_APP=autoapp.py FLASK_DEBUG=1 flask db upgrade`
 * Run the app server: `make app`
@@ -74,7 +76,9 @@ You can also do load testing with [locust](https://locust.io/) by running the fo
 
 `locust -f tests/locustfile.py --host={app uri}`
 
-and then open `http://127.0.0.1:8089/` in your browser. 
+and then open `http://127.0.0.1:8089/` in your browser.
+
+UPDATE(April 2021): locust library requires latest Werkzeug, which doesn't work with flask-restplus.
 
 ## Improvements wishlist
 
@@ -87,3 +91,13 @@ and then open `http://127.0.0.1:8089/` in your browser.
 * JWT auth tokens
 * Admin panel with the ability to search over error log content and metadata
 * HTTPS
+
+## Troubleshooting
+
+### `ModuleNotFoundError: No module named 'pip.req'`
+
+Make sure you're using the latest `pip-tools`:
+
+```bash
+pip install -U pip-tools
+```
