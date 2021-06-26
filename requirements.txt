@@ -8,8 +8,6 @@ alembic==1.5.8
     # via flask-migrate
 aniso8601==9.0.1
     # via flask-restplus
-appnope==0.1.0
-    # via ipython
 attrs==20.3.0
     # via
     #   jsonschema
@@ -93,7 +91,7 @@ ptyprocess==0.5.2
     # via pexpect
 py==1.10.0
     # via pytest
-pygments==2.2.0
+pygments==2.7.4
     # via ipython
 pyparsing==2.4.7
     # via packaging
