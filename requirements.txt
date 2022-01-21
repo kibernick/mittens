@@ -12,6 +12,8 @@ attrs==20.3.0
     # via
     #   jsonschema
     #   pytest
+backcall==0.2.0
+    # via ipython
 click==6.7
     # via
     #   flask
@@ -23,6 +25,16 @@ decorator==4.1.2
     #   traitlets
 first==2.0.1
     # via pip-tools
+flask==1.1.2
+    # via
+    #   -r requirements.in
+    #   flask-cors
+    #   flask-login
+    #   flask-migrate
+    #   flask-restplus
+    #   flask-shell-ipython
+    #   flask-sqlalchemy
+    #   pytest-flask
 flask-cors==3.0.10
     # via -r requirements.in
 flask-login==0.5.0
@@ -37,26 +49,16 @@ flask-sqlalchemy==2.5.1
     # via
     #   -r requirements.in
     #   flask-migrate
-flask==1.1.2
-    # via
-    #   -r requirements.in
-    #   flask-cors
-    #   flask-login
-    #   flask-migrate
-    #   flask-restplus
-    #   flask-shell-ipython
-    #   flask-sqlalchemy
-    #   pytest-flask
 greenlet==1.0.0
     # via sqlalchemy
 iniconfig==1.1.1
     # via pytest
-ipython-genutils==0.2.0
-    # via traitlets
-ipython==6.2.1
+ipython==7.16.3
     # via
     #   -r requirements.in
     #   flask-shell-ipython
+ipython-genutils==0.2.0
+    # via traitlets
 itsdangerous==1.1.0
     # via flask
 jedi==0.11.0
@@ -85,7 +87,7 @@ pip-tools==1.10.1
     # via -r requirements.in
 pluggy==0.13.1
     # via pytest
-prompt-toolkit==1.0.15
+prompt-toolkit==3.0.24
     # via ipython
 ptyprocess==0.5.2
     # via pexpect
@@ -97,12 +99,12 @@ pyparsing==2.4.7
     # via packaging
 pyrsistent==0.17.3
     # via jsonschema
-pytest-flask==1.2.0
-    # via -r requirements.in
 pytest==6.2.3
     # via
     #   -r requirements.in
     #   pytest-flask
+pytest-flask==1.2.0
+    # via -r requirements.in
 python-dateutil==2.8.1
     # via
     #   -r requirements.in
@@ -113,15 +115,12 @@ pytz==2021.1
     # via
     #   -r requirements.in
     #   flask-restplus
-simplegeneric==0.8.1
-    # via ipython
 six==1.11.0
     # via
     #   flask-cors
     #   flask-restplus
     #   jsonschema
     #   pip-tools
-    #   prompt-toolkit
     #   python-dateutil
     #   traitlets
 sqlalchemy==1.4.11
