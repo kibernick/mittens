@@ -69,10 +69,11 @@ jsonschema==3.2.0
     # via flask-restplus
 mako==1.1.4
     # via alembic
-markupsafe==1.1.1
+markupsafe==2.1.2
     # via
     #   jinja2
     #   mako
+    #   werkzeug
 mysqlclient==2.0.3
     # via -r requirements.in
 packaging==20.9
@@ -134,7 +135,7 @@ traitlets==4.3.2
     # via ipython
 wcwidth==0.1.7
     # via prompt-toolkit
-werkzeug==0.16.1
+werkzeug==2.2.3
     # via
     #   -r requirements.in
     #   flask
