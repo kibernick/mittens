@@ -14,7 +14,7 @@ SQLAlchemy
 pytz
 python-dateutil
 mysqlclient
-Werkzeug==0.16.1  # https://github.com/noirbizarre/flask-restplus/issues/777#issuecomment-583235327
+Werkzeug==2.2.3  # https://github.com/noirbizarre/flask-restplus/issues/777#issuecomment-583235327
 
 # test
 pytest
